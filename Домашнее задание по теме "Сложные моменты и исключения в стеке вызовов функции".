@@ -1,0 +1,36 @@
+def personal_sum(numbers):
+    result = 0
+    incorrect_data = 0
+
+    try:
+        for number in numbers:
+            if isinstance(number, int) or isinstance(number, float):
+                result += number
+            else:
+                incorrect_data += 1
+    except TypeError:
+        print('Некорректный тип данных')
+        return None
+
+    return result, incorrect_data
+
+
+def calculate_average(numbers):
+    try:
+        sum_of_numbers, _ = personal_sum(numbers)
+        average = sum_of_numbers / len(numbers)
+    except ZeroDivisionError:
+        print("Коллекция пуста")
+        return 0
+    except TypeError:
+        print('В numbers записан некорректный тип данных')
+        return None
+
+    return average
+
+
+
+print(f'Результат 1: {calculate_average([2, 3, 4])}')
+print(f'Результат 2: {calculate_average([2, "Строка", 4, "Ещё Строка"])}')
+print(f'Результат 3: {calculate_average(432)}')
+print(f'Результат 4: {calculate_average([10, 42, 25, 16])}')
