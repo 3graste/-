@@ -1,36 +1,32 @@
 def personal_sum(numbers):
+
     result = 0
     incorrect_data = 0
-
-    try:
-        for number in numbers:
-            if isinstance(number, int) or isinstance(number, float):
-                result += number
-            else:
-                incorrect_data += 1
-    except TypeError:
-        print('Некорректный тип данных')
-        return None
-
+    for number in numbers:
+        try:
+            result += number
+        except TypeError:
+            incorrect_data += 1
+            print(f"Некорректный тип данных для подсчёта суммы - {number}")
     return result, incorrect_data
 
 
 def calculate_average(numbers):
+
     try:
-        sum_of_numbers, _ = personal_sum(numbers)
-        average = sum_of_numbers / len(numbers)
+        sum_result, incorrect_data = personal_sum(numbers)
+        if len(numbers) > incorrect_data:
+            return sum_result / (len(numbers) - incorrect_data)
+        else:
+            return 0
     except ZeroDivisionError:
-        print("Коллекция пуста")
         return 0
     except TypeError:
         print('В numbers записан некорректный тип данных')
         return None
 
-    return average
 
-
-
-print(f'Результат 1: {calculate_average([2, 3, 4])}')
-print(f'Результат 2: {calculate_average([2, "Строка", 4, "Ещё Строка"])}')
-print(f'Результат 3: {calculate_average(432)}')
-print(f'Результат 4: {calculate_average([10, 42, 25, 16])}')
+print(f'Результат 1: {calculate_average("2, 3, 4")}')
+print(f'Результат 2: {calculate_average([5, "Строка", 7, "Ещё Строка"])}')
+print(f'Результат 3: {calculate_average(471)}')
+print(f'Результат 4: {calculate_average([13, 45, 76, 9])}')
